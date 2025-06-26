@@ -1,6 +1,6 @@
 <div id="main_container">
     <div id="player_container">
-        @for (card of playerCard; track $index){
+        @for (card of gameService.playerCards(); track $index){
             <app-card 
             [card]="card"
             [isClickable]="true"
@@ -10,7 +10,7 @@
     </div>
 
     <div id="computer_container">
-        @for (card of compCard; track $index){
+        @for (card of gameService.compCards(); track $index){
             <app-card 
             [card]="card"
             [isClickable]="false"
@@ -24,7 +24,7 @@
     </div>
 
     <div id="discard_top">
-        @for (card of discardTop; track $index) {
+        @for (card of gameService.discardTop(); track $index) {
             <app-card
             [card]="card"
             [isClickable]="false"
