@@ -1,0 +1,111 @@
+#outer_card{
+    position: relative;
+    border: 2px solid white;
+    height: 270px;
+    width: 170px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+#inner_card{
+    position: absolute;
+    height: 250px;
+    width: 150px;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#top_num{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 8px;
+    left: 8px;
+    // background-color: white;
+    text-align: center;
+    font-weight: bold;
+    line-height: 40px;
+    border-radius: 4px;
+    height: 40px;
+    width: 25px;
+}
+
+#bttm_num{
+    position: absolute;
+    bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 8px;
+    // background-color: white;
+    height: 40px;
+    width: 25px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 40px;
+    border-radius: 4px;
+    transform: rotate(180deg);
+}
+
+#large_num{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    // background-color: white;
+    height: 40px;
+    width: 25px;
+    text-align: center;
+    font-weight: bold;
+    line-height: 40px;
+    border-radius: 4px;
+}
+
+p{
+    font-size: 30px;
+}
+
+.red{
+    background-color: red;
+}
+
+.yellow{
+    background-color: yellow;
+}
+
+.green{
+    background-color: green;
+}
+
+.blue{
+    background-color: blue;
+}
+
+
+#back_card{
+    position: absolute;
+    height: 250px;
+    width: 150px;
+    background-color: black;
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#luno_card{
+    position: relative;
+    color: white;
+    font-weight: 800;
+    transform: rotate(315deg);
+}

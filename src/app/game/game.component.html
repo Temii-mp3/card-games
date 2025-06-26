@@ -1,0 +1,36 @@
+<div id="main_container">
+    <div id="player_container">
+        @for (card of playerCard; track $index){
+            <app-card 
+            [card]="card"
+            [isClickable]="true"
+            [isFaceUp]="true"
+            />
+        }
+    </div>
+
+    <div id="computer_container">
+        @for (card of compCard; track $index){
+            <app-card 
+            [card]="card"
+            [isClickable]="false"
+            [isFaceUp]="false"
+            />
+        }
+    </div>
+
+    <div id="deck">
+        <app-card [isFaceUp]="false"/>
+    </div>
+
+    <div id="discard_top">
+        @for (card of discardTop; track $index) {
+            <app-card
+            [card]="card"
+            [isClickable]="false"
+            [isFaceUp]="true"
+            />
+        }
+    </div>
+</div>
+

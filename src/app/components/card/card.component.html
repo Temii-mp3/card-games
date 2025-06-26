@@ -1,0 +1,17 @@
+<div>
+    <div id="outer_card">
+        @if (this.isFaceUp) {
+        <div id="inner_card" [ngClass]="card.color" *ngIf="card" >
+            <div id="top_num"><p class="cardNum" *ngIf="card">{{getCardValue()}}</p></div>
+            <div id="bttm_num"><p class="cardNum" *ngIf="card">{{getCardValue()}}</p></div>
+            <div id="large_num"><p class="cardNum" *ngIf="card">{{getCardValue()}}</p></div>
+        </div>
+        }
+        @else {
+        <div id="back_card" >
+            <p id="luno_card">LUNO</p>
+        </div>
+        }
+
+    </div>
+</div>

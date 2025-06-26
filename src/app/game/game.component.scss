@@ -1,0 +1,58 @@
+#main_container {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+}
+
+#computer_container {
+  position: absolute;
+  display: flex;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#player_container {
+  position: absolute;
+  display: flex;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#deck {
+  position: absolute;
+  top: 50%;
+  right: 50px;
+  transform: translateY(-50%);
+}
+
+#discard_top{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;   // match your card width
+  height: 250px;  // match your card height
+
+  /* Makes child `app-card`s position relative to this box */
+  position: relative;
+}
+
+#player_container app-card:not(:first-child),
+#computer_container app-card:not(:first-child) {
+  margin-left: -100px;
+}
+
+#discard_top app-card{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#discard_top app-card:nth-child(2){
+  transform: rotate((10deg));
+}
+#discard_top app-card:nth-child(3){
+  transform: rotate((-10deg));
+}
