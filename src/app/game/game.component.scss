@@ -56,3 +56,29 @@
 #discard_top app-card:nth-child(3){
   transform: rotate((-10deg));
 }
+
+
+app-card:hover{
+  transform: scale(1.05);
+}
+
+.playable:hover{
+  border: red 5px solid;
+  border-radius: 20px;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: inherit;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+}
+
+.cdk-drag-preview app-card {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+
