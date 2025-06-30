@@ -1,12 +1,8 @@
 <div id="main_container">
-    <div id="player_container"
-    cdkDropList
-    [cdkDropListData]="gameService.playerCards()"
-    cdkDropListConnectedTo="['discard_top']"
-    (cdkDropListDropped)="gameService.onDrop($event)">
+    <div id="player_container">
         @for (card of gameService.playerCards(); track $index){
             <app-card 
-            cdkDrag
+            (click) = "gameService.playCard(card)"
             [card]="card"
             [isClickable]="true"
             [isFaceUp]="true"
@@ -26,14 +22,10 @@
     </div>
 
     <div id="deck" >
-        <app-card [isFaceUp]="false"/>
+        <app-card (click) = "gameService.drawCard('player')"[isFaceUp]="false"/>
     </div>
 
-    <div id="discard_top"
-    cdkDropList
-    [cdkDropListData]="gameService.discardTop()"
-    cdkDropListConnectedTo="['player_container']"
-    (cdkDropListDropped)="gameService.onDrop($event)">
+    <div id="discard_top">
         @for (card of gameService.discardTop(); track $index) {
             <app-card
             [card]="card"

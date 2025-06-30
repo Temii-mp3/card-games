@@ -1,16 +1,16 @@
 #outer_card{
     position: relative;
     border: 2px solid white;
-    height: 270px;
-    width: 170px;
+    height: 250px;
+    width: 150px;
     background-color: white;
     border-radius: 10px;
 }
 
 #inner_card{
     position: absolute;
-    height: 250px;
-    width: 150px;
+    height: 240px;
+    width: 140px;
     border-radius: 10px;
     left: 50%;
     top: 50%;
