@@ -9,7 +9,7 @@ export class GameService {
   constructor() {}
 
   colors: cardColor[] = ['red', 'blue', 'green', 'yellow', 'wild'];
-  types: cardType[] = [];
+  types: cardType[] = ['draw2', 'draw4', 'skip', 'reverse', 'wild', 'number'];
   playerCards = signal<Card[]>([]);
   compCards = signal<Card[]>([]);
   discardTop = signal<Card[]>([]);
@@ -20,18 +20,45 @@ export class GameService {
   }
 
   getRandomType(): any {
-    return 'number';
+    return this.types[Math.floor(Math.random() * 6)];
   }
 
   initializeGame() {
     this.cardCount = 0;
     this.discardTop().length = 0;
     for (this.cardCount; this.cardCount < 7; this.cardCount++) {
+      const type: cardType = this.getRandomType();
+      let color: cardColor;
+      let value: number | undefined;
+
+      switch (type) {
+        case 'number':
+          color = this.getRandomColor();
+          value = Math.floor(Math.random() * 10);
+          break;
+        case 'skip':
+          color = this.getRandomColor();
+          value = undefined;
+          break;
+        case 'reverse':
+          color = this.getRandomColor();
+          value = undefined;
+          break;
+        case 'draw2':
+          color = this.getRandomColor();
+          value = undefined;
+          break;
+        case 'draw4':
+          color = 'black';
+          break;
+        case 'wild':
+          color = 'wild';
+      }
       const newCard: Card = {
         id: `card-${this.cardCount}`,
-        color: this.getRandomColor(),
-        type: this.getRandomType(),
-        value: Math.floor(Math.random() * 10),
+        color: color,
+        type: type,
+        value: value,
         isPlayable: false,
       };
       this.playerCards().push(newCard);
