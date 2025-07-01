@@ -24,6 +24,8 @@ export class GameService {
   }
 
   initializeGame() {
+    this.cardCount = 0;
+    this.discardTop().length = 0;
     for (this.cardCount; this.cardCount < 7; this.cardCount++) {
       const newCard: Card = {
         id: `card-${this.cardCount}`,
@@ -85,7 +87,7 @@ export class GameService {
 
   playCard(card: Card) {
     this.checkPlayability();
-    if (card.isPlayable) {
+    if (card.isPlayable && this.currentTurn() == 'player') {
       this.playerCards().splice(
         this.playerCards().findIndex((c) => c.id == card.id),
         1
@@ -94,8 +96,11 @@ export class GameService {
       this.playerCards().forEach((card) => {
         card.isPlayable = false;
       });
-      this.computerPlay();
     }
+    this.checkWinner();
+    this.currentTurn.set(this.nextTurn());
+    console.log(this, this.currentTurn());
+    this.computerPlay();
   }
 
   computerPlay() {
@@ -113,10 +118,39 @@ export class GameService {
         });
         this.currentTurn.set(this.nextTurn());
         hasCard = true;
+        this.checkWinner();
         break;
       }
-      if (!hasCard) {
-        this.drawCard('computer');
+    }
+    if (!hasCard) {
+      this.drawCard('computer');
+    }
+  }
+
+  checkWinner() {
+    if (!this.playerCards().length) {
+      alert('Player has won');
+      let ans = prompt('Do you want to play again?')?.toLowerCase();
+      while (ans != 'yes' && ans != 'no') {
+        alert('you must enter a value');
+        ans = prompt('Do you want to play again?')?.toLowerCase();
+      }
+      if (ans == 'yes') {
+        this.initializeGame();
+      } else if (ans == 'no') {
+        alert('Goodbye');
+      }
+    } else if (!this.compCards().length) {
+      alert('Computer has won');
+      let ans = prompt('Do you want to play again?')?.toLowerCase();
+      while (ans != 'yes' && ans != 'no') {
+        alert('you must enter a value');
+        ans = prompt('Do you want to play again?')?.toLowerCase();
+      }
+      if (ans == 'yes') {
+        this.initializeGame();
+      } else if (ans == 'no') {
+        alert('Goodbye');
       }
     }
   }
@@ -133,6 +167,7 @@ export class GameService {
       this.playerCards().push(newCard);
       this.cardCount++;
       this.currentTurn.set(this.nextTurn());
+      this.computerPlay();
     } else if (player == 'computer' && this.currentTurn() == 'computer') {
       const newCard: Card = {
         id: `card-${this.cardCount}}`,
