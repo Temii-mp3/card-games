@@ -19,8 +19,18 @@ export class GameService {
     return this.colors[Math.floor(Math.random() * 4)];
   }
 
+  /*used to randomly pick a card type, special cards are rarer to get 
+  numbered cards are more common*/
   getRandomType(): any {
-    return this.types[Math.floor(Math.random() * 6)];
+  const rand = Math.random() * 100; //  0–99.99
+
+  if (rand < 5) return 'wild';      // 5%
+  if (rand < 10) return 'draw4';    // 5%
+  if (rand < 15) return 'skip';     // 5%
+  if (rand < 20) return 'reverse';  // 5%
+  if (rand < 25) return 'draw2';    // 5%
+  return 'number';                  // 75% chance
+
   }
 
   initializeGame() {
@@ -99,6 +109,11 @@ export class GameService {
         if (card.type == topCard.type && card.value == topCard.value) {
           card.isPlayable = true;
         }
+        if(card.type == topCard.type && card.type != 'number'){
+          card.isPlayable = true
+        }
+
+        console.log(card)
       }
     } else {
       for (const card of this.compCards()) {
@@ -123,11 +138,10 @@ export class GameService {
       this.playerCards().forEach((card) => {
         card.isPlayable = false;
       });
-    }
     this.checkWinner();
     this.currentTurn.set(this.nextTurn());
-    console.log(this, this.currentTurn());
     this.computerPlay();
+    }
   }
 
   computerPlay() {
