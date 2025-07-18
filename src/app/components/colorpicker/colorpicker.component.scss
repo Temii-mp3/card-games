@@ -1,0 +1,22 @@
+#outer_container{
+    width: 150px;
+    height: 100px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+#red{
+    background-color: red;
+}
+
+#yellow{
+    background-color: yellow;
+}
+
+#blue{
+    background-color: blue;
+}
+
+#green{
+    background-color: green;
+}

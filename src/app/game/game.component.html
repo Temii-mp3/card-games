@@ -4,7 +4,6 @@
             <app-card 
             (click) = "gameService.playCard(card)"
             [card]="card"
-            [isClickable]="true"
             [isFaceUp]="true"
             [class.playable] = 'card.isPlayable'
             />
@@ -15,11 +14,14 @@
         @for (card of gameService.compCards(); track $index){
             <app-card 
             [card]="card"
-            [isClickable]="false"
             [isFaceUp]="false"
             />
         }
     </div>
+    @if (gameService.isWild == true) {
+        <app-colorpicker (click) = "gameService.changeWildColor($event)" />
+    }
+
 
     <div id="deck" >
         <app-card (click) = "gameService.drawCard('player')"[isFaceUp]="false"/>
@@ -29,7 +31,6 @@
         @for (card of gameService.discardTop(); track $index) {
             <app-card
             [card]="card"
-            [isClickable]="false"
             [isFaceUp]="true"
             />
         }
