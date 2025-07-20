@@ -15,7 +15,7 @@ export class GameService {
   playerCards = signal<Card[]>([]);
   compCards = signal<Card[]>([]);
   discardTop = signal<Card[]>([]);
-  currentTurn = signal<string>('player');
+  currentTurn = signal<number>(0);
   cardReference: string = '';
   players: Player[] = [];
 
@@ -42,18 +42,19 @@ export class GameService {
     const player1: Player = {
       id: '234',
       isAI: false,
-      hand: undefined,
+      hand: [],
       skipNextTurn: false,
       drawBuffer: undefined,
     };
 
     const player2: Player = {
       id: '234',
-      isAI: false,
-      hand: undefined,
+      isAI: true,
+      hand: [],
       skipNextTurn: false,
       drawBuffer: undefined,
     };
+
     this.players.push(player1, player2);
     for (
       let playerCount = 0;
@@ -62,14 +63,11 @@ export class GameService {
     ) {
       for (let cards = 0; cards < 7; cards++) {
         const newCard = this.createCard();
-        this.playerCards().push(newCard);
+        this.players[playerCount].hand.push(newCard);
+        this.cardCount++;
       }
     }
 
-    for (this.cardCount = 0; this.cardCount < 7; this.cardCount++) {
-      const newCard: Card = this.createCard();
-      this.compCards().push(newCard);
-    }
     const initialCard: Card = {
       id: 'initial-card',
       color: this.getRandomColor(),
@@ -82,42 +80,28 @@ export class GameService {
   }
 
   nextTurn() {
-    return this.currentTurn() == 'player' ? 'computer' : 'player';
+    this.currentTurn.update((i) => (i + 1) % this.players.length); //keeps turns within player array
   }
 
   checkPlayability() {
-    const cardSet =
-      this.currentTurn() === 'player' ? this.playerCards() : this.compCards();
+    const cardSet = this.players[this.currentTurn()].hand;
     for (const card of cardSet) {
       card.isPlayable = false;
     }
     const topCard: Card = this.discardTop()[this.discardTop().length - 1];
-    if (this.currentTurn() == 'player') {
-      for (const card of this.playerCards()) {
-        if (card.color == topCard.color || card.value == topCard.value) {
-          card.isPlayable = true;
-        }
-        if (card.type == topCard.type && card.value == topCard.value) {
-          card.isPlayable = true;
-        }
-        if (card.type == topCard.type && card.type != 'number') {
-          card.isPlayable = true;
-        }
-        if (card.type == 'wild' || card.type == 'draw4') {
-          card.isPlayable = true;
-        }
+
+    for (const card of cardSet) {
+      if (card.color == topCard.color || card.value == topCard.value) {
+        card.isPlayable = true;
       }
-    } else {
-      for (const card of this.compCards()) {
-        if (card.color == topCard.color || card.value == topCard.value) {
-          card.isPlayable = true;
-        }
-        if (card.type == topCard.type && card.value == topCard.value) {
-          card.isPlayable = true;
-        }
-        if (card.type == 'wild' || card.type == 'draw4') {
-          card.isPlayable = true;
-        }
+      if (card.type == topCard.type && card.value == topCard.value) {
+        card.isPlayable = true;
+      }
+      if (card.type == topCard.type && card.type != 'number') {
+        card.isPlayable = true;
+      }
+      if (card.type == 'wild' || card.type == 'draw4') {
+        card.isPlayable = true;
       }
     }
   }
