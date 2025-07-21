@@ -106,33 +106,25 @@ export class GameService {
     }
   }
 
-  playCard(card: Card) {
+  playCard(card: Card, id: string) {
+    const player = this.players[this.currentTurn()];
     this.checkPlayability();
-    if (card.isPlayable && this.currentTurn() == 'player') {
+    if (card.isPlayable && player.id == id) {
       switch (card.type) {
         case 'reverse':
-          this.playerCards().splice(
-            this.playerCards().findIndex((c) => c.id == card.id),
-            1
-          );
+          player.hand.splice(player.hand.findIndex((c) => c.id == card.id));
           this.discardTop().push(card);
-          this.currentTurn.set('player');
+          this.nextTurn();
           return;
         case 'skip':
-          this.playerCards().splice(
-            this.playerCards().findIndex((c) => c.id == card.id),
-            1
-          );
+          player.hand.splice(player.hand.findIndex((c) => c.id == card.id));
           this.discardTop().push(card);
-          this.currentTurn.set('player');
+          this.nextTurn();
           return;
         case 'draw2':
-          this.playerCards().splice(
-            this.playerCards().findIndex((c) => c.id == card.id),
-            1
-          );
+          player.hand.splice(player.hand.findIndex((c) => c.id == card.id));
           this.discardTop().push(card);
-          this.currentTurn.set('player');
+          this.nextTurn();
           for (let i = 0; i < 2; i++) {
             const newCard = this.createCard();
             this.compCards().push(newCard);

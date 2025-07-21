@@ -1,39 +1,90 @@
-<div id="main_container">
-    <div id="player_container">
-        @for (card of gameService.playerCards(); track $index){
-            <app-card 
-            (click) = "gameService.playCard(card)"
-            [card]="card"
-            [isFaceUp]="true"
-            [class.playable] = 'card.isPlayable'
-            />
-        }
+<div class="main_container">
+  @if (gameService.players.length === 2) {
+  <div id="game-grid">
+    <div class="player bottom">
+      @for (card of gameService.players[0].hand; track card.id) {
+      <app-card
+        [card]="card"
+        (click)="gameService.playCard(card, gameService.players[0].id)"
+        [isFaceUp]="true"
+        [class.playable]="card.isPlayable"
+      />
+      }
     </div>
 
-    <div id="computer_container">
-        @for (card of gameService.compCards(); track $index){
-            <app-card 
-            [card]="card"
-            [isFaceUp]="false"
-            />
-        }
-    </div>
-    @if (gameService.isWild == true) {
-        <app-colorpicker (click) = "gameService.changeWildColor($event)" />
-    }
-
-
-    <div id="deck" >
-        <app-card (click) = "gameService.drawCard('player')"[isFaceUp]="false"/>
+    <div class="discard">
+      @for (card of gameService.discardTop(); track card.id) {
+      <app-card [card]="card" ... />
+      }
     </div>
 
-    <div id="discard_top">
-        @for (card of gameService.discardTop(); track $index) {
-            <app-card
-            [card]="card"
-            [isFaceUp]="true"
-            />
-        }
+    <div class="player top">
+      @for (card of gameService.players[1].hand; track card.id) {
+      <app-card
+        [card]="card"
+        (click)="gameService.playCard(card, gameService.players[0].id)"
+        [isFaceUp]="true"
+        [class.playable]="card.isPlayable"
+      />
+      }
     </div>
+  </div>
+
+  }@else if (gameService.players.length === 3) {
+  <div id="game-grid">
+    <div class="player bottom">
+      @for (card of gameService.players[0].hand; track card.id) {
+      <app-card [card]="card" ... />
+      }
+    </div>
+    <div class="player left">
+      @for (card of gameService.players[1].hand; track card.id) {
+      <app-card [card]="card" ... />
+      }
+    </div>
+
+    <div class="discard">
+      @for (card of gameService.discardTop(); track card.id) {
+      <app-card [card]="card" ... />
+      }
+    </div>
+
+    <div class="player top">
+      @for (card of gameService.players[2].hand; track card.id) {
+      <app-card [card]="card" ... />
+      }
+    </div>
+  </div>
+  }@else {
+  <div id="game-grid">
+    <div class="player bottom">
+      @for (card of gameService.players[0].hand; track card.id) {
+      <app-card [card]="card" ... />
+      }
+    </div>
+    <div class="player left">
+      @for (card of gameService.players[1].hand; track card.id) {
+      <app-card [card]="card" ... />
+      }
+    </div>
+
+    <div class="discard">
+      @for (card of gameService.discardTop(); track card.id) {
+      <app-card [card]="card" ... />
+      }
+    </div>
+
+    <div class="player top">
+      @for (card of gameService.players[2].hand; track card.id) {
+      <app-card [card]="card" ... />
+      }
+    </div>
+
+    <div class="player eight">
+      @for (card of gameService.players[3].hand; track card.id) {
+      <app-card [card]="card" ... />
+      }
+    </div>
+  </div>
+  }
 </div>
-
